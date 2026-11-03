@@ -41,9 +41,9 @@ Cada morador sabe, em segundos e sem fazer conta, quanto deve e quanto tem a rec
 
 | Integrante | Papel no Scrum |
 |---|---|
-| [Nome 1] | Product Owner |
-| [Nome 2] | Scrum Master e Developer |
-| [Nome 3] | Developer |
+| Giovanna Hototian | Product Owner |
+| Julya Dias | Scrum Master e Developer |
+| Karolaine Helena | Developer |
 
 > Com 3 pessoas, o Scrum Master também desenvolve. O PO participa das conversas e dos critérios de aceite, mas não estima nem decide como implementar.
 
