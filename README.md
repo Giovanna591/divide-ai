@@ -51,7 +51,7 @@ Cada morador sabe, em segundos e sem fazer conta, quanto deve e quanto tem a rec
 
 R = Responsável · A = Aprovador · C = Consultado · I = Informado
 
-| Atividade | PO ([Nome 1]) | Scrum Master ([Nome 2]) | Developers ([Nome 2], [Nome 3]) | Professor |
+| Atividade | PO (Giovanna) | Scrum Master (Julya) | Developers (Julya, Karolaine) | Professor |
 |---|:-:|:-:|:-:|:-:|
 | Definir visão e objetivo do produto | A/R | C | C | I |
 | Escrever e ordenar o Product Backlog | A/R | C | C | I |
@@ -95,7 +95,7 @@ Usamos o baralho de Fibonacci modificado (1, 2, 3, 5, 8, 13, 20, 40, 100, ?). S�
 
 **Referência pequena (2 pontos):** uma tela simples de listagem, sem regra de negócio (ex.: listar os moradores da casa).
 
-| História | Votos (rodada 1 → rodada 2) | Final | Justificativa |
+| História | Votos Julya, Karolaine (rodada 1 → rodada 2) | Final | Justificativa |
 |---|---|:-:|---|
 | #1 Criar conta | 2, 3 → 3, 3 | **3** | Maior que a referência: tem validação, hash de senha e sessão. Tecnologia conhecida, poucas dúvidas. |
 | #3 Registrar despesa | 3, 5 → 3, 3 | **3** | Quem votou 5 pensou na divisão desigual, que foi separada na história #7. Com divisão igual, é um formulário com gravação e lista. |
