@@ -13,11 +13,15 @@ import getpass
 import os
 import sys
 
+from .cadastro import cadastrar
 from .erros import ErroDivideAi
 from .repositorio import RepositorioUsuarios
 
 
 def executar(comando, repositorio, email, senha):
+    if comando == "cadastrar":
+        usuario = cadastrar(repositorio, email, senha)
+        return f"Conta criada para {usuario.email}."
     raise ErroDivideAi(f"O comando '{comando}' ainda não foi implementado.")
 
 
