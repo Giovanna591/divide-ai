@@ -1,6 +1,81 @@
 # Divide Aí
 
+## O que é
+
+O Divide Aí é uma aplicação para quem divide moradia (repúblicas, apartamentos) controlar as despesas da casa e saber quem deve quanto a quem.
+
+Nesta primeira sprint a equipe entregou o **login**: cadastro com senha protegida por hash, login com sessão, mensagem de erro genérica, validação de e-mail e bloqueio da conta por 10 minutos após 3 senhas erradas. Ele roda pela linha de comando e está escrito em Python.
+
 > Para estudantes que dividem moradia e perdem tempo (e amizades) acertando contas da casa, o **Divide Aí** é uma aplicação web de controle de despesas compartilhadas que mostra, a qualquer momento, quem deve quanto a quem. Diferente da planilha no grupo do WhatsApp, o nosso cálculo de saldo é automático e cada despesa fica registrada com quem pagou e como foi dividida.
+
+## Equipe
+
+| Integrante | GitHub | Papel |
+|---|---|---|
+| Giovanna Hototian | [@Giovanna591](https://github.com/Giovanna591) | Product Owner (PO) |
+| Julya Dias | [@Julyxdias](https://github.com/Julyxdias) | Scrum Master (SM) e Developer |
+| Karolaine Helena | [@Karolaine231](https://github.com/Karolaine231) | Developer |
+
+Na Sprint 1 todas implementaram uma parte do login, cada uma na sua branch e com o seu pull request.
+
+## Como rodar o projeto
+
+Precisa do **Python 3.10 ou mais novo**. No Windows, troque `python` por `py` se o comando não for encontrado.
+
+```bash
+git clone https://github.com/Giovanna591/divide-ai.git
+cd divide-ai
+pip install -r requirements.txt
+```
+
+Criar uma conta e fazer login (a senha é pedida no terminal e não aparece enquanto você digita):
+
+```bash
+python -m divide_ai cadastrar ana@email.com
+python -m divide_ai entrar ana@email.com
+```
+
+Os usuários ficam no arquivo `divide_ai.db`, criado na pasta onde o comando foi executado. Para usar outro arquivo, defina a variável de ambiente `DIVIDE_AI_BANCO`.
+
+| Situação | O que acontece |
+|---|---|
+| E-mail vazio ou sem @ | `Erro: E-mail inválido.` (antes de consultar o banco) |
+| Senha com menos de 8 caracteres no cadastro | `Erro: A senha deve ter pelo menos 8 caracteres.` |
+| E-mail ou senha errados no login | `Erro: E-mail ou senha inválidos.` |
+| 4ª tentativa depois de 3 senhas erradas seguidas | `Erro: Conta bloqueada...` por 10 minutos, mesmo com a senha certa |
+
+## Como rodar os testes
+
+Na pasta do projeto, com um único comando:
+
+```bash
+pytest
+```
+
+Se o comando `pytest` não for encontrado, use `python -m pytest`.
+
+| Teste | Comportamento | Arquivo |
+|---|---|---|
+| T1 | Cadastro válido grava senha diferente da digitada (hash) | `tests/test_cadastro.py` |
+| T2 | Login correto retorna sucesso (sessão com token) | `tests/test_login.py` |
+| T3 | Senha errada retorna erro genérico | `tests/test_login.py` |
+| T4 | E-mail inválido é rejeitado | `tests/test_validacao.py` |
+| T5 | 4ª tentativa após 3 erros é recusada mesmo com senha certa | `tests/test_login.py` |
+| T6 | Senha curta é rejeitada no cadastro | `tests/test_cadastro.py` |
+
+## Estrutura
+
+```
+divide_ai/
+  __main__.py     linha de comando (cadastrar, entrar)
+  cadastro.py     cadastro e senha mínima (L1, L6)
+  login.py        login, erro genérico e bloqueio (L2, L3, L5)
+  validacao.py    validação de e-mail (L4)
+  senha.py        hash da senha (PBKDF2-SHA256)
+  repositorio.py  banco SQLite dos usuários
+  erros.py        erros do módulo
+tests/            testes automatizados (pytest)
+```
 
 ## Problema
 
@@ -37,17 +112,9 @@ Cada morador sabe, em segundos e sem fazer conta, quanto deve e quanto tem a rec
 1. **Uso real:** uma casa com pelo menos 3 moradores usa o Divide Aí por 2 semanas seguidas e lança pelo menos 10 despesas.
 2. **Confiabilidade do saldo:** em um conjunto de 20 despesas de teste, o saldo calculado pelo sistema bate 100% com o cálculo manual.
 
-## Equipe
-
-| Integrante | Papel no Scrum |
-|---|---|
-| Giovanna Hototian | Product Owner |
-| Julya Dias | Scrum Master e Developer |
-| Karolaine Helena | Developer |
-
-> Com 3 pessoas, o Scrum Master também desenvolve. O PO participa das conversas e dos critérios de aceite, mas não estima nem decide como implementar.
-
 ## Matriz RACI
+
+Com 3 pessoas, a Scrum Master também desenvolve. Nas atividades de produto, a PO não estima nem decide como implementar.
 
 R = Responsável · A = Aprovador · C = Consultado · I = Informado
 
@@ -67,6 +134,24 @@ R = Responsável · A = Aprovador · C = Consultado · I = Informado
 
 Cada linha tem exatamente um A.
 
+## Sprint 1: login
+
+**Objetivo:** entregar o login do Divide Aí funcionando, com cadastro, entrada, erro genérico, validação de e-mail e bloqueio, e os 6 testes automatizados passando com `pytest`.
+
+**Capacidade:** 15 pontos (3 pessoas, 2 encontros). Planejado: 13 pontos.
+
+| Issue | História | Comportamento | Responsável | Pontos |
+|:-:|---|:-:|---|:-:|
+| #12 | Estrutura do projeto e README | – | @Karolaine231 | 2 |
+| #13 | Validação de e-mail | L4 | @Karolaine231 | 1 |
+| #14 | Cadastro com senha protegida | L1 | @Giovanna591 | 3 |
+| #15 | Senha mínima de 8 caracteres | L6 | @Giovanna591 | 1 |
+| #16 | Login com sucesso | L2 | @Julyxdias | 2 |
+| #17 | Erro genérico na senha errada | L3 | @Julyxdias | 1 |
+| #18 | Bloqueio após 3 senhas erradas | L5 | @Julyxdias | 3 |
+
+O objetivo da sprint também está na issue fixada **#19 Sprint 1: objetivo**.
+
 ## Product Backlog
 
 O backlog está nas [Issues](../../issues) do repositório, ordenado no quadro **Projects**. Labels usadas:
@@ -77,7 +162,7 @@ O backlog está nas [Issues](../../issues) do repositório, ordenado no quadro *
 
 | # | História | Prioridade | Pontos |
 |:-:|---|:-:|:-:|
-| 1 | Como morador, quero criar uma conta com e-mail e senha, para acessar as despesas da casa de qualquer dispositivo | Must | 3 |
+| 1 | Como morador, quero criar uma conta com e-mail e senha, para acessar as despesas da casa de qualquer dispositivo (dividida nas histórias #12 a #18 da Sprint 1) | Must | 3 |
 | 2 | Como administrador da casa, quero criar uma casa e convidar os moradores por um link, para reunir todos que dividem as contas | Must | 5 |
 | 3 | Como morador, quero registrar uma despesa informando valor, descrição, data e quem pagou, para que ela seja dividida igualmente entre os moradores | Must | 3 |
 | 4 | Como morador, quero ver quanto devo e quanto tenho a receber de cada pessoa, para saber como acertar as contas | Must | 5 |
@@ -109,11 +194,18 @@ Usamos o baralho de Fibonacci modificado (1, 2, 3, 5, 8, 13, 20, 40, 100, ?). S�
 Uma história só é considerada pronta quando:
 
 - [ ] Todos os critérios de aceite da issue estão marcados.
-- [ ] O código está em um pull request revisado por pelo menos 1 outro Developer.
-- [ ] Os testes automatizados passam no CI.
+- [ ] O código está em um pull request aprovado por pelo menos 1 colega antes do merge na `main`.
+- [ ] Todos os testes automatizados passam com `pytest`.
 - [ ] Não há bugs críticos abertos relacionados à história.
 - [ ] A funcionalidade foi demonstrada ao PO.
 
 ## Quadro do projeto
 
-GitHub Projects com as colunas: **Backlog → Pronto para sprint → Em andamento → Em revisão → Concluído**.
+GitHub Projects (template Kanban) vinculado a este repositório, com as colunas **Backlog → Ready → In progress → In review → Done**, limite de WIP em In progress e In review e o campo **Sprint** (Iteration). As histórias da sprint vão para Done automaticamente quando o pull request que as fecha é mergeado.
+
+## Fluxo de trabalho
+
+1. Cada história da sprint tem uma responsável (Assignee) e uma branch criada a partir da issue (Development > Create a branch).
+2. Os commits seguem o padrão `tipo: o que fez (#N)`, por exemplo `feat: valida e-mail antes de consultar o banco (#13)`.
+3. O pull request tem `Closes #N`, as seções "O que foi feito" e "Como testar" e uma revisora marcada.
+4. A `main` é protegida: só recebe código por pull request com 1 aprovação.
